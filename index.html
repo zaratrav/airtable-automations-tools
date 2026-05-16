@@ -1,86 +1,425 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Airtable Automations | Triggers, Scripts & Workflow Automation</title>
-<meta name="description" content="Airtable automation guide including triggers, email automation, Slack integration, scripting, webhooks, conditional logic and automation limits.">
-<meta name="keywords" content="airtable automations guide, airtable automation trigger, airtable send email automation, airtable slack automation, airtable scripting javascript, airtable webhook, airtable run script action, airtable automation limits">
-<meta name="google-site-verification" content="PkLa_ViOo6FAHpvh8SacceMb95o9tePRdrqLNBz9X1M" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="PkLa_ViOo6FAHpvh8SacceMb95o9tePRdrqLNBz9X1M" />
+    <title>Airtable Scripts: Complete Guide to Writing Custom Scripts | JavaScript Tutorial</title>
+    <meta name="description" content="Complete guide to Airtable scripts. Learn JavaScript, write custom automations, duplicate records, send emails, update fields. Code examples and best practices.">
+    <meta name="keywords" content="airtable scripts, airtable scripting javascript, how to write airtable scripts, airtable script examples, airtable automation scripts, airtable javascript tutorial">
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+    <header class="header">
+        <div class="container">
+            <h1>Airtable Scripts: Complete Guide to Writing Custom Scripts</h1>
+            <p class="subtitle">Learn to automate, customize, and extend Airtable with JavaScript scripts</p>
+        </div>
+    </header>
 
-<h1>Airtable Automations & Workflow Tools</h1>
 
-<h2>Available Tools</h2>
-<ul>
-<li><a href="#">Airtable Automations Guide</a></li>
-<li><a href="#">Automation Triggers</a></li>
-<li><a href="#">Send Email Automation</a></li>
-<li><a href="#">Slack Automation</a></li>
-<li><a href="#">Script Automation</a></li>
-<li><a href="#">JavaScript Scripting</a></li>
-<li><a href="#">Webhook Guide</a></li>
-<li><a href="#">Run Script Action</a></li>
-<li><a href="#">Conditional Logic</a></li>
-<li><a href="#">Automation Limits</a></li>
-</ul>
+<main>
+    <section class="intro">
+        <div class="container">
+            <h2>Master Airtable Scripts & Custom Automation</h2>
+            <p>
+                Airtable scripts unlock powerful automation beyond native features. With JavaScript, you can duplicate records, 
+                send bulk emails, manipulate data, integrate with APIs, and build workflows that would take hours manually. 
+                Whether you're a non-coder or experienced developer, this guide walks you through everything you need to know.
+            </p>
+        </div>
+    </section>
 
-<h2>About Airtable Automations</h2>
-<p>
-Airtable automations allow you to automate workflows by connecting triggers and actions directly within your database.
-</p>
+    <section class="featured-tool">
+        <div class="container">
+            <h2>Airtable Script Snippet Viewer</h2>
+            <p>Browse common scripts and copy ready-to-use code snippets for your base.</p>
+            
+            <div class="snippet-viewer">
+                <div class="viewer-controls">
+                    <label for="snippetCategory">Select Script Category:</label>
+                    <select id="snippetCategory" onchange="loadSnippet()">
+                        <optgroup label="Record Operations">
+                            <option value="duplicate-record">Duplicate Records</option>
+                            <option value="update-fields">Update Multiple Fields</option>
+                            <option value="delete-records">Delete Records</option>
+                            <option value="create-record">Create Records Programmatically</option>
+                        </optgroup>
+                        <optgroup label="Data Manipulation">
+                            <option value="batch-update">Batch Update Records</option>
+                            <option value="bulk-email">Send Bulk Emails</option>
+                            <option value="filter-data">Filter & Export Data</option>
+                            <option value="aggregate-data">Aggregate & Summarize Data</option>
+                        </optgroup>
+                        <optgroup label="Integration">
+                            <option value="fetch-api">Fetch External API Data</option>
+                            <option value="slack-notify">Send Slack Notification</option>
+                            <option value="webhook">Process Webhook Data</option>
+                        </optgroup>
+                        <optgroup label="Utility">
+                            <option value="timestamp">Add Timestamps</option>
+                            <option value="random-id">Generate Random IDs</option>
+                            <option value="string-manipulation">String Manipulation Helpers</option>
+                        </optgroup>
+                    </select>
+                </div>
 
-<p>
-Triggers start automations based on events such as record creation, updates, or scheduled conditions.
-</p>
+                <div class="snippet-display" id="snippetDisplay" style="display: none;">
+                    <div class="snippet-header">
+                        <h3 id="snippetTitle"></h3>
+                        <p id="snippetDescription"></p>
+                    </div>
 
-<p>
-Actions like sending emails or Slack notifications enable real-time communication and workflow execution.
-</p>
+                    <div class="snippet-code">
+                        <div class="code-header">
+                            <span class="code-label">JavaScript Code</span>
+                            <button class="copy-btn" onclick="copySnippet()">Copy to Clipboard</button>
+                        </div>
+                        <pre><code id="snippetCode"></code></pre>
+                    </div>
 
-<p>
-Script automation with JavaScript allows advanced customization and dynamic data processing.
-</p>
+                    <div class="snippet-explanation">
+                        <h4>How It Works</h4>
+                        <ul id="explanationList"></ul>
+                    </div>
 
-<p>
-Webhooks enable integration with external systems, extending Airtable beyond its native capabilities.
-</p>
+                    <div class="snippet-tips">
+                        <h4>💡 Tips</h4>
+                        <ul id="tipsList"></ul>
+                    </div>
+                </div>
 
-<p>
-Conditional logic ensures automations run only when specific criteria are met.
-</p>
+                <div class="initial-message">
+                    <p>👇 Select a category above to view code snippets</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<p>
-Understanding automation limits helps optimize performance and scalability.
-</p>
+    <section class="airtable-guide">
+        <div class="container">
+            <h2>Getting Started with Airtable Scripts</h2>
+            
+            <h3>What Are Airtable Scripts?</h3>
+            <p>
+                Airtable scripts are JavaScript code blocks that run within your Airtable workspace. They execute in the 
+                script editor and can read/write data to your base, send API requests, and automate complex workflows. 
+                Scripts bridge the gap between Airtable's native features and custom business logic.
+            </p>
 
-<h2>Related Searches</h2>
-<ul>
-<li>airtable automation examples workflow</li>
-<li>airtable send email automation setup</li>
-<li>airtable slack automation example</li>
-<li>airtable scripting javascript tutorial</li>
-<li>airtable webhook integration guide</li>
-<li>airtable automation limits explained</li>
-</ul>
+            <h3>Where Scripts Run</h3>
+            <p>
+                Scripts execute in three contexts:
+            </p>
+            <ul style="list-style-position: inside; color: var(--text-light); line-height: 1.8;">
+                <li><strong>Script Editor:</strong> Write and test scripts directly in Airtable workspace</li>
+                <li><strong>Automations:</strong> Trigger scripts via "Run Script" action when events occur</li>
+                <li><strong>Extensions:</strong> Embed script logic within custom Airtable extensions</li>
+            </ul>
 
-<h2>More Keywords</h2>
-<p>
-automation tools, workflow automation, no code automation,
-integration tools, productivity tools,
-modern automation workflow
-</p>
+            <h3>Airtable Script Basics</h3>
+            <div class="basics-grid">
+                <div class="basic-card">
+                    <h4>🔧 Script Runtime</h4>
+                    <p>Scripts run in a Node.js-like environment with 30-second timeout limit. Access to Airtable SDK for reading/writing base data.</p>
+                </div>
+                <div class="basic-card">
+                    <h4>📚 Available APIs</h4>
+                    <p>Use base, table, record APIs to query and modify data. fetch() for external APIs. Console.log for debugging output.</p>
+                </div>
+                <div class="basic-card">
+                    <h4>🔐 Permissions</h4>
+                    <p>Scripts inherit base creator's permissions. Can read/write only accessible records and fields. Cannot delete bases or tables.</p>
+                </div>
+                <div class="basic-card">
+                    <h4>⚡ Performance</h4>
+                    <p>30-second timeout. Batch operations in chunks of 100. Rate limits apply for API calls. Optimize loops and queries.</p>
+                </div>
+            </div>
 
-<footer>
-<p>
-airtable automation tools,
-workflow automation systems,
-no code automation tools,
-integration automation tools,
-modern airtable tools
-</p>
+            <h3>Common Use Cases</h3>
+            
+            <h4>📋 1. Duplicate Records with Related Data</h4>
+            <p>
+                Copy a record including all field values. Useful for templates, proposals, or duplicating entire projects.
+            </p>
+
+            <h4>📧 2. Send Bulk Emails</h4>
+            <p>
+                Fetch records matching criteria and send personalized emails. Integrate with SendGrid, Mailgun, or other email services.
+            </p>
+
+            <h4>🔄 3. Sync Data Between Tables</h4>
+            <p>
+                Mirror data from one table to another. Update linked records automatically when source data changes.
+            </p>
+
+            <h4>📊 4. Calculate & Update Fields</h4>
+            <p>
+                Complex calculations (commissions, tax, totals) that exceed formula field limits. Run scheduled updates.
+            </p>
+
+            <h4>🔗 5. Fetch External Data</h4>
+            <p>
+                Pull data from APIs (weather, stock prices, currency rates) and populate Airtable records automatically.
+            </p>
+
+            <h4>💬 6. Send Slack/Teams Messages</h4>
+            <p>
+                Trigger notifications based on record changes. Send summaries, alerts, or daily reports to team channels.
+            </p>
+
+            <h3>Script Structure & Key Functions</h3>
+            <p>
+                Every Airtable script follows this pattern:
+            </p>
+            <ul style="list-style-position: inside; color: var(--text-light); line-height: 1.8;">
+                <li><strong>Get table reference:</strong> `const table = base.getTable("TableName");`</li>
+                <li><strong>Query records:</strong> `const records = await table.selectRecordsAsync({ fields: [...] });`</li>
+                <li><strong>Process data:</strong> Loop through records, transform, calculate, etc.</li>
+                <li><strong>Update base:</strong> `await table.updateRecordsAsync([...]);` for batch changes</li>
+                <li><strong>Error handling:</strong> Try/catch blocks to manage failures gracefully</li>
+                <li><strong>Output:</strong> Console.log results for debugging, display in UI if extension</li>
+            </ul>
+
+            <h3>Best Practices for Writing Scripts</h3>
+            <p>
+                Follow these patterns to write reliable, maintainable scripts:
+            </p>
+            
+            <div class="best-practices-grid">
+                <div class="practice-card">
+                    <h4>✅ Batch Operations</h4>
+                    <p>Update records in batches of 50-100, not one-by-one. Reduces execution time by 10-100x.</p>
+                </div>
+                <div class="practice-card">
+                    <h4>✅ Error Handling</h4>
+                    <p>Wrap database operations in try/catch. Log errors clearly. Don't silently fail.</p>
+                </div>
+                <div class="practice-card">
+                    <h4>✅ Logging Output</h4>
+                    <p>Use output.markdown() for readable results. Track progress on long-running scripts.</p>
+                </div>
+                <div class="practice-card">
+                    <h4>✅ Avoid Infinite Loops</h4>
+                    <p>Set strict loop limits. Test on small datasets first. Monitor execution time.</p>
+                </div>
+                <div class="practice-card">
+                    <h4>✅ Secure Secrets</h4>
+                    <p>Store API keys in environment variables. Don't hardcode secrets in scripts.</p>
+                </div>
+                <div class="practice-card">
+                    <h4>✅ Comment Your Code</h4>
+                    <p>Explain complex logic. Document expected inputs/outputs. Future you will thank you.</p>
+                </div>
+            </div>
+
+            <h3>Airtable Script API Reference</h3>
+            <p>
+                Core objects you'll use in every script:
+            </p>
+            <ul style="list-style-position: inside; color: var(--text-light); line-height: 1.8;">
+                <li><strong>base:</strong> Access to your workspace. `base.getTable(name)`, `base.getView(name)`</li>
+                <li><strong>table:</strong> Reference to specific table. `table.selectRecordsAsync()`, `table.updateRecordsAsync()`</li>
+                <li><strong>records:</strong> Array of record objects. Access fields via `record.getCellValue(fieldName)`</li>
+                <li><strong>output:</strong> Display results. `output.text()`, `output.markdown()`, `output.table()`</li>
+                <li><strong>cursor:</strong> Pagination for large datasets. Iterate through records efficiently</li>
+            </ul>
+
+            <h3>Debugging Scripts</h3>
+            <p>
+                When scripts fail or produce unexpected results:
+            </p>
+            <ul style="list-style-position: inside; color: var(--text-light); line-height: 1.8;">
+                <li><strong>Use Console:</strong> Add `console.log()` statements to track variables and logic flow</li>
+                <li><strong>Check Output:</strong> Output panel shows script results and error messages</li>
+                <li><strong>Test Incrementally:</strong> Write small sections, test each part separately</li>
+                <li><strong>Validate Data:</strong> Log record counts, field names, and values before processing</li>
+                <li><strong>Handle Timeouts:</strong> Scripts limited to 30 seconds. Break large tasks into smaller automation runs</li>
+            </ul>
+
+            <h3>Running Scripts via Automations</h3>
+            <p>
+                The real power comes from triggering scripts automatically:
+            </p>
+            <ul style="list-style-position: inside; color: var(--text-light); line-height: 1.8;">
+                <li><strong>When Record Created:</strong> Run script on new record immediately</li>
+                <li><strong>When Record Updated:</strong> Trigger on field changes (update linked fields, send notifications)</li>
+                <li><strong>On Schedule:</strong> Daily/weekly scheduled runs for bulk operations</li>
+                <li><strong>From Webhook:</strong> External systems trigger scripts via webhook payload</li>
+                <li><strong>From Button:</strong> Click a button field to execute custom logic</li>
+            </ul>
+
+            <h3>Common Pitfalls & Solutions</h3>
+            <div class="pitfalls-grid">
+                <div class="pitfall-card">
+                    <h4>⚠️ Exceeding 30-Second Timeout</h4>
+                    <p><strong>Solution:</strong> Break into smaller scripts or batches. Query only needed fields. Use batch updates (50-100 at once).</p>
+                </div>
+                <div class="pitfall-card">
+                    <h4>⚠️ Modifying Records Inside Loop</h4>
+                    <p><strong>Solution:</strong> Collect updates in array, then batch update once. Reduces API calls 100x.</p>
+                </div>
+                <div class="pitfall-card">
+                    <h4>⚠️ Querying All Records Without Filter</h4>
+                    <p><strong>Solution:</strong> Use filterByFormula to limit results. Only select necessary fields with `fields` parameter.</p>
+                </div>
+                <div class="pitfall-card">
+                    <h4>⚠️ No Error Handling</h4>
+                    <p><strong>Solution:</strong> Wrap in try/catch. Log errors. Gracefully handle API failures and invalid data.</p>
+                </div>
+                <div class="pitfall-card">
+                    <h4>⚠️ Hardcoded Field Names</h4>
+                    <p><strong>Solution:</strong> Reference field IDs instead of names. Names can change; IDs are permanent.</p>
+                </div>
+                <div class="pitfall-card">
+                    <h4>⚠️ Not Testing on Staging</h4>
+                    <p><strong>Solution:</strong> Create test base copy. Test script changes before running on production data.</p>
+                </div>
+            </div>
+
+            <h3>Advanced: Creating Airtable Extensions with Scripts</h3>
+            <p>
+                For power users, extend Airtable beyond scripts by building custom extensions (React-based apps that live in your base). 
+                Extensions can embed script logic, provide UI, and persist state. This is enterprise-level customization.
+            </p>
+        </div>
+    </section>
+
+    <section class="script-resources">
+        <div class="container">
+            <h2>Airtable Script Resources & Learning</h2>
+            
+            <h3>Official Documentation & Communities</h3>
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <h4><a href="https://www.airtable.com/developers/scripting" target="_blank">📖 Official Airtable Scripting Docs</a></h4>
+                    <p>Complete API reference, tutorials, and feature documentation from Airtable.</p>
+                </div>
+                <div class="resource-card">
+                    <h4><a href="https://community.airtable.com/development-apis-11" target="_blank">👥 Airtable Community - Development</a></h4>
+                    <p>Ask questions, share scripts, learn from other developers' solutions.</p>
+                </div>
+                <div class="resource-card">
+                    <h4><a href="https://www.reddit.com/r/Airtable/" target="_blank">🔗 r/Airtable on Reddit</a></h4>
+                    <p>Active community discussing scripts, automations, workflows, and Airtable tips.</p>
+                </div>
+                <div class="resource-card">
+                    <h4><a href="https://www.airtable.com/guides/scale/write-custom-scripts-in-airtable" target="_blank">📚 Airtable Scaling Guide</a></h4>
+                    <p>Best practices for scaling automations and scripts as your base grows.</p>
+                </div>
+            </div>
+
+            <h3>Other Automation & Integration Tools</h3>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <h4><a href="#">🤖 Automations Guide</a></h4>
+                    <p>Complete guide to triggers, actions, and automation workflows in Airtable.</p>
+                </div>
+                <div class="tool-card">
+                    <h4><a href="#">📧 Send Email Automation</a></h4>
+                    <p>Learn to set up automated email notifications from Airtable records.</p>
+                </div>
+                <div class="tool-card">
+                    <h4><a href="#">💬 Slack Integration Guide</a></h4>
+                    <p>Integrate Airtable with Slack for real-time notifications and bot commands.</p>
+                </div>
+                <div class="tool-card">
+                    <h4><a href="#">🔗 Webhook Integration</a></h4>
+                    <p>Use webhooks to connect Airtable with external systems and APIs.</p>
+                </div>
+                <div class="tool-card">
+                    <h4><a href="#">⚙️ Conditional Logic</a></h4>
+                    <p>Set up if/then conditions in automations for complex workflows.</p>
+                </div>
+                <div class="tool-card">
+                    <h4><a href="#">📊 Automation Limits & Quotas</a></h4>
+                    <p>Understand execution limits, script timeouts, and API rate limiting.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faqs">
+        <div class="container">
+            <h2>Frequently Asked Questions About Airtable Scripts</h2>
+
+            <div class="faq-item">
+                <h3>Do I need to know JavaScript to write Airtable scripts?</h3>
+                <p>
+                    Yes. Airtable scripts use JavaScript (specifically, async/await syntax). If you're new to JavaScript, 
+                    start with basic tutorials (Codecademy, MDN) on variables, loops, and functions. The Airtable API is beginner-friendly once you understand JavaScript basics.
+                </p>
+            </div>
+
+            <div class="faq-item">
+                <h3>What's the difference between scripts and automations?</h3>
+                <p>
+                    Automations are triggers + actions (visual, no-code). Scripts are JavaScript code for advanced logic. 
+                    Use automations for simple workflows (email on record create). Use scripts for complex operations (duplicate record with calculations, sync external data).
+                </p>
+            </div>
+
+            <div class="faq-item">
+                <h3>How long can scripts run?</h3>
+                <p>
+                    30 seconds maximum per execution. For larger operations, batch into multiple automation runs or use the 
+                    Airtable API from external services. For real-time responsiveness, keep scripts under 10 seconds.
+                </p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Can scripts access data from other bases?</h3>
+                <p>
+                    No. Scripts only access the base they're created in. To sync data between bases, use Zapier, Make, 
+                    or build a custom API backend that reads/writes both bases via Airtable API.
+                </p>
+            </div>
+
+            <div class="faq-item">
+                <h3>How do I schedule scripts to run daily/weekly?</h3>
+                <p>
+                    Use Airtable automations with "On schedule" trigger (daily, weekly, monthly). Or use external services 
+                    like Zapier/Make to call your script via API on a schedule.
+                </p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Can scripts send emails directly?</h3>
+                <p>
+                    No direct email from Airtable scripts. Use email service APIs (SendGrid, Mailgun, Gmail API) within your script. 
+                    Or use Airtable's native "Send Email" automation action (simpler, no code needed).
+                </p>
+            </div>
+
+            <div class="faq-item">
+                <h3>What happens if a script fails?</h3>
+                <p>
+                    Script stops execution and displays error. Use try/catch to handle errors gracefully. Log detailed error 
+                    messages. Automation won't retry automatically unless you set up retry logic in the automation itself.
+                </p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Can I use npm packages in Airtable scripts?</h3>
+                <p>
+                    No npm packages. Only built-in JavaScript + Airtable SDK. For external functionality (PDFs, image processing), 
+                    call external APIs from your script.
+                </p>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <p>&copy; 2026 Airtable Scripts Guide. Automate smarter, code better.</p>
+    </div>
 </footer>
+
+<script src="app.js"></script>
+
 
 </body>
 </html>
